@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block title %}View Departments{% endblock %}
+{% block content %}
+<style>
+  .main-card{ background:white; border-radius:18px; padding:22px; box-shadow:0 8px 25px rgba(0,0,0,0.08); }
+  .pro-table { width:100%; border-collapse:collapse; }
+  .pro-table th{ background:#0d6efd; color:white; padding:14px 12px; text-align:left; font-size:13.5px; }
+  .pro-table td{ padding:14px 12px; font-size:14px; border-bottom:1px solid #eef2f7; vertical-align:middle; }
+  .pro-table tr:hover{ background:#f5f9ff; }
+  .dept-badge{ background:#dbeafe; color:#1e40af; padding:6px 12px; border-radius:20px; font-weight:700; font-size:13px; }
+  .desc-text{ color:#475569; max-width:350px; word-break:break-word; }
+  .action-box{ display:flex; gap:6px; justify-content:center; }
+  .btn-edit{ background:#0d6efd; color:white; padding:5px 14px; border-radius:20px; text-decoration:none; font-size:12px; }
+  .btn-del{ background:#dc3545; color:white; padding:5px 14px; border-radius:20px; text-decoration:none; font-size:12px; }
+</style>
+
+<div style="padding:15px;">
+  <div style="display:flex; justify-content:space-between; align-items:center;">
+    <h4 style="font-weight:800;">All Departments <span style="background:#0d6efd; color:white; padding:2px 9px; border-radius:50%; font-size:14px;">{{ departments|length }}</span></h4>
+    <a href="{% url 'add_department' %}" style="background:#198754; color:white; padding:7px 16px; border-radius:20px; text-decoration:none; font-weight:600; font-size:13px;">+ Add Department</a>
+  </div>
+  <br>
+
+  <div class="main-card">
+    <table class="pro-table">
+      <thead>
+        <tr>
+          <th style="border-radius:10px 0 0 10px; width:60px;">ID</th>
+          <th>Department Name</th>
+          <th>Description</th>
+          <th style="border-radius:0 10px 10px 0; text-align:center; width:140px;">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for dept in departments %}
+        <tr>
+          <td><b>#{{ dept.id }}</b></td>
+          <td><span class="dept-badge">{{ dept.dept_name }}</span></td>
+          <td class="desc-text">{{ dept.description|default:"No description" }}</td>
+          <td>
+            <div class="action-box">
+              <a href="{% url 'edit_department' dept.id %}" class="btn-edit">Edit</a>
+              <a href="{% url 'delete_department' dept.id %}" onclick="return confirm('{{ dept.dept_name }} delete cheyala?')" class="btn-del">Delete</a>
+            </div>
+          </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="4" style="text-align:center; padding:20px;">No Departments Found</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <br>
+  <a href="{% url 'dashboard' %}" style="background:#0d6efd; color:white; padding:9px 18px; border-radius:25px; text-decoration:none; font-size:13px;">← Back to Dashboard</a>
+</div>
+{% endblock %}

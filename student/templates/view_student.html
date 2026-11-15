@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block title %}View Students{% endblock %}
+{% block content %}
+<style>
+  .main-card{ background:white; border-radius:18px; padding:20px; box-shadow:0 8px 25px rgba(0,0,0,0.08); overflow-x:auto; }
+  .pro-table { width:100%; min-width:1000px; border-collapse:collapse; }
+  .pro-table th{ background:#0d6efd; color:white; padding:14px 10px; text-align:left; font-size:13px; white-space:nowrap; }
+  .pro-table td{ padding:14px 10px; font-size:13.5px; border-bottom:1px solid #eef2f7; vertical-align:middle; }
+  .pro-table tr:hover{ background:#f5f9ff; }
+  .badge-dept{ background:#dbeafe; color:#1e40af; padding:5px 10px; border-radius:15px; font-weight:600; font-size:12px; display:inline-block; max-width:150px; white-space:normal; word-break:break-word; }
+  .badge-course{ background:#fef3c7; color:#92400e; padding:5px 10px; border-radius:15px; font-weight:600; font-size:12px; display:inline-block; }
+  .action-box{ display:flex; flex-direction:column; gap:6px; align-items:center; }
+  .btn-edit{ background:#0d6efd; color:white; padding:5px 14px; border-radius:20px; text-decoration:none; font-size:12px; text-align:center; width:60px; }
+  .btn-del{ background:#dc3545; color:white; padding:5px 14px; border-radius:20px; text-decoration:none; font-size:12px; text-align:center; width:60px; }
+</style>
+
+<div style="padding:15px;">
+  <div style="display:flex; justify-content:space-between; align-items:center;">
+    <h4 style="font-weight:800;">All Students <span style="background:#0d6efd; color:white; padding:2px 9px; border-radius:50%; font-size:14px;">{{ students|length }}</span></h4>
+    <a href="{% url 'add_student' %}" style="background:#198754; color:white; padding:7px 16px; border-radius:20px; text-decoration:none; font-weight:600; font-size:13px;">+ Add Student</a>
+  </div>
+  <br>
+  <div class="main-card">
+    <table class="pro-table">
+      <thead>
+        <tr>
+          <th style="border-radius:10px 0 0 10px;">ID</th>
+          <th>UserName</th>
+          <th>Email</th>
+          <th>Student Name</th>
+          <th>Course</th>
+          <th>Department</th>
+          <th style="border-radius:0 10px 10px 0; text-align:center; width:90px;">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for student in students %}
+        <tr>
+          <td><b>#{{ student.id }}</b></td>
+          <td><b style="color:#0d6efd;">{{ student.user.username }}</b></td>
+          <td style="max-width:160px; word-break:break-all;">{{ student.user.email }}</td>
+          <td><b>{{ student.name }}</b></td>
+          <td><span class="badge-course">{{ student.course }}</span></td>
+          <td><span class="badge-dept">{{ student.department.dept_name }}</span></td>
+          <td>
+            <div class="action-box">
+              <a href="{% url 'edit_student' student.id %}" class="btn-edit">Edit</a>
+              <a href="{% url 'delete_student' student.id %}" onclick="return confirm('{{ student.name }} ni delete cheyala?')" class="btn-del">Delete</a>
+            </div>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <br>
+  <a href="{% url 'dashboard' %}" style="background:#0d6efd; color:white; padding:9px 18px; border-radius:25px; text-decoration:none; font-size:13px;">← Back to Dashboard</a>
+</div>
+{% endblock %}

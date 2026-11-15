@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Login - Student Registration</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  *{ margin:0; padding:0; box-sizing:border-box; font-family: 'Segoe UI', sans-serif; }
+  body{
+    min-height:100vh;
+    display:flex; justify-content:center; align-items:center;
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1400&q=80');
+    background-size:cover; background-position:center;
+    padding:15px;
+  }
+  .login-card{
+    background:rgba(255,255,255,0.95);
+    width:100%; max-width:420px;
+    border-radius:22px; padding:35px 30px;
+    box-shadow:0 20px 40px rgba(0,0,0,0.3);
+    backdrop-filter:blur(10px);
+    animation: pop 0.6s ease;
+  }
+  @keyframes pop{ from{ transform:scale(0.9); opacity:0; } to{ transform:scale(1); opacity:1; } }
+  .logo{ text-align:center; font-size:52px; margin-bottom:5px; }
+  .title{ text-align:center; font-weight:800; font-size:22px; color:#0f172a; }
+  .subtitle{ text-align:center; color:#64748b; font-size:13px; margin:6px 0 20px 0; }
+  .msg{ background:#fef2f2; border-left:4px solid #ef4444; color:#b91c1c; padding:8px 12px; border-radius:8px; font-size:12.5px; margin-bottom:10px; }
+  .msg.success{ background:#f0fdf4; border-left-color:#22c55e; color:#15803d; }
+  .form-group{ margin-bottom:16px; }
+  .form-group label{ font-weight:600; font-size:13.5px; margin-bottom:6px; display:block; }
+  .form-group input{ width:100%; padding:12px 14px; border:1.5px solid #e2e8f0; border-radius:12px; outline:none; font-size:14px; }
+  .form-group input:focus{ border-color:#0d6efd; box-shadow:0 0 0 3px rgba(13,110,253,0.15); }
+  .btn-login{ width:100%; background:linear-gradient(90deg,#0d6efd,#4f46e5); color:white; border:none; padding:12px; border-radius:12px; font-weight:700; font-size:15px; cursor:pointer; margin-top:8px; }
+  .btn-login:hover{ opacity:0.9; transform:scale(1.01); }
+  .footer{ text-align:center; margin-top:18px; font-size:12px; color:#94a3b8; }
+</style>
+</head>
+<body>
+
+<div class="login-card">
+  <div class="logo">🎓✨</div>
+  <div class="title">LOGIN TO SMS 🔐</div>
+  <div class="subtitle">Student Management System 📚💙</div>
+
+  {% if messages %}
+    {% for message in messages %}
+      <div class="msg {% if 'successfully' in message.tags or 'success' in message.message|lower %}success{% endif %}">
+        {% if 'already' in message.message|lower %}⚠️{% elif 'success' in message.message|lower %}✅{% else %}💬{% endif %}
+        {{ message }}
+      </div>
+    {% endfor %}
+  {% endif %}
+
+  <form method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+      <label>👤 UserName</label>
+      <input type="text" name="username" placeholder="Enter UserName 😎" required>
+    </div>
+    <div class="form-group">
+      <label>🔑 Password</label>
+      <input type="password" name="password" placeholder="Enter Password 🔒" required>
+    </div>
+    <button type="submit" class="btn-login">Login 🚀</button>
+  </form>
+
+  <div class="footer">Made with 💖 by Deepu | SMS 2026 🎉</div>
+</div>
+
+</body>
+</html>
