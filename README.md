@@ -65,7 +65,7 @@ A complete Student Management System built using Python Django and MySQL Databas
    python manage.py runserver
 
 10. Open browser
-    http://127.0.0.1:8000/
+    local server will run at this-http://127.0.0.1:8000/
 
 ## 👨‍💻 Developed By
 Deepu - Python Django + MySQL Developer
