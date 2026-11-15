@@ -28,7 +28,7 @@ A complete Student Management System built using Python Django and MySQL Databas
 ## 🚀 How To Run This Project
 
 1. Clone this repository
-   git clone https://github.com/deepu1234567891011/Student-_management-_django-project.git
+   git clone (https://github.com/deepu1234567891011/student_management_django/tree/main)
 
 2. Go inside folder
    cd Student-_management-_django-project
